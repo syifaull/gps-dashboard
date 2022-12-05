@@ -82,7 +82,7 @@ const Detail = () => {
               </table>
             </div>
             <div className="border rounded border-[#54526A]">
-              <PieChart chartData={chartData} />
+              <PieChart chartData={chartData} /> {setChartData}
             </div>
           </div>
         </div>
