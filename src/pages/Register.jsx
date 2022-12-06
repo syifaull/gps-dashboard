@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonBlue from "../components/ButtonBlue";
 import InputForm from "../components/InputForm";
 
@@ -8,21 +8,21 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = async () => {
     await axios
       .post(process.env.REACT_APP_BASE_URL + "api/signup", {
-        body: {
-          name,
-          email,
-          password,
-        },
+        name,
+        email,
+        password,
       })
       .then((response) => {
         alert("berhasil");
+        navigate("/");
       })
-      .catch((err) => {
-        alert(err.data.response.message);
+      .catch((response) => {
+        alert("gagal");
       });
   };
   return (
@@ -45,12 +45,10 @@ const Register = () => {
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <ButtonBlue title="Register" onCLick={() => handleRegister()} />
-            <Link to="/">
-              <p className="text-white text-xs text-center">
-                Already Have an Account?
-              </p>
-            </Link>
+            <ButtonBlue title="Register" onClick={handleRegister} />
+            <p className="text-white text-xs text-center">
+              <Link to="/">Already Have an Account?</Link>
+            </p>
           </div>
         </div>
       </div>

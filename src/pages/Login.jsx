@@ -12,9 +12,9 @@ const Login = () => {
             <InputForm type="text" placeholder="Email" />
             <InputForm type="password" placeholder="Password" />
             <ButtonBlue title="Login" />
-            <Link to="/register">
-              <p className="text-white text-xs text-center">New Here?</p>
-            </Link>
+            <p className="text-white text-xs text-center">
+              <Link to="/register">New Here?</Link>
+            </p>
           </div>
         </div>
       </div>
