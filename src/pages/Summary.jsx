@@ -1,6 +1,7 @@
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
+  ChevronUpDownIcon,
   DocumentMagnifyingGlassIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
@@ -115,7 +116,12 @@ const Summary = () => {
           <thead className="border-b border-[#7496C1] text-[#54526A]">
             <tr>
               <td>Device ID</td>
-              <td>Device Type</td>
+              <td>
+                <div className="flex justify-center ">
+                  <p>Device Type </p>
+                  <ChevronUpDownIcon className="mt-1 w-3 h-3 text-[#54526A]" />
+                </div>
+              </td>
               <td>Latest Time Stamp</td>
               <td>Latest Location</td>
               <td>Detail</td>
@@ -133,7 +139,7 @@ const Summary = () => {
                   <td>{item.location}</td>
                   <td>
                     <DocumentMagnifyingGlassIcon
-                      className="w-5 h-5 text-white"
+                      className="w-5 h-5 text-white "
                       onClick={() => handleDetail(item)}
                     />
                   </td>

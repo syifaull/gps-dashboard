@@ -6,6 +6,7 @@ import PieChart from "../components/PieChart";
 
 const Detail = () => {
   const [getDetail, setGetDetail] = useState([]);
+
   const location = useLocation();
 
   const handleGetDetail = async () => {
@@ -27,45 +28,41 @@ const Detail = () => {
     handleGetDetail();
   }, []);
 
-  // const Data = [
-  //   {
-  //     id: 1,
-  //     year: 2016,
-  //     userGain: 80000,
-  //     userLost: 823,
-  //   },
-  //   {
-  //     id: 2,
-  //     year: 2017,
-  //     userGain: 45677,
-  //     userLost: 345,
-  //   },
-  //   {
-  //     id: 3,
-  //     year: 2018,
-  //     userGain: 78888,
-  //     userLost: 555,
-  //   },
-  //   {
-  //     id: 4,
-  //     year: 2019,
-  //     userGain: 90000,
-  //     userLost: 4555,
-  //   },
-  //   {
-  //     id: 5,
-  //     year: 2020,
-  //     userGain: 4300,
-  //     userLost: 234,
-  //   },
+  // const newArray = [
+  //   { name: "L1", sum: 4 },
+  //   { name: "L2", sum: 1 },
   // ];
 
+  let array = [];
+  for (let i = 0; i < getDetail.length; i++) {
+    let count = 0;
+
+    for (let j = 0; j < getDetail.length; j++) {
+      if (getDetail[i].location === getDetail[j].location && i > j) {
+        break;
+      }
+      if (getDetail[i].location === getDetail[j].location) {
+        count++;
+      }
+    }
+    if (count > 0) {
+      array.push({ name: getDetail[i].location, sum: count });
+      //setNewArray({ name: getDetail[i].location, sum: count });
+    }
+  }
+
+  const newArray = array;
+  //const [newArray] = useState(array);
+
+  console.log(newArray);
+  // console.log(getDetail);
+
   const [chartData, setChartData] = useState({
-    labels: getDetail.map((data) => data.location),
+    labels: newArray.map((data) => data.name),
     datasets: [
       {
         label: "Users Gained ",
-        data: getDetail.map((data) => data.location),
+        data: newArray.map((data) => data.sum),
         backgroundColor: [
           "rgba(75,192,192,1)",
           "#ecf0f1",
@@ -77,6 +74,7 @@ const Detail = () => {
       },
     ],
   });
+  console.log(chartData);
 
   return (
     <div className="w-full h-screen bg-[#0B0B0B] p-20">
