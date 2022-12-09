@@ -14,6 +14,7 @@ const Summary = () => {
   const [getGPS, setGetGPS] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
+  const [search, setSearch] = useState(null);
   const navigate = useNavigate();
 
   const handleGetGPS = async () => {
@@ -39,10 +40,26 @@ const Summary = () => {
     });
   };
 
+  const bySearch = (item, search) => {
+    if (search) {
+      return (
+        item.device_id.toLowerCase().includes(search.toLowerCase()) ||
+        item.device_type.toLowerCase().includes(search.toLowerCase())
+      );
+    } else return item;
+  };
+
+  const filteredList = (getGPS, search) => {
+    return getGPS.filter((item) => bySearch(item, search));
+  };
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = getGPS.slice(indexOfFirstPost, indexOfLastPost);
-  const maxPage = Math.ceil(getGPS.length / postsPerPage);
+  const currentPosts = filteredList(getGPS, search).slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
+  const maxPage = Math.ceil(filteredList(getGPS, search).length / postsPerPage);
 
   const handleNext = () => {
     setCurrentPage(currentPage === maxPage ? currentPage : currentPage + 1);
@@ -69,6 +86,7 @@ const Summary = () => {
             <input
               placeholder="Search by ID or Type"
               className="focus:outline-none bg-[#34344D] text-xs text-white"
+              onChange={(e) => setSearch(e.target.value)}
             ></input>
           </div>
           <div className="flex">
