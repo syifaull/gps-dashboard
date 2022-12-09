@@ -18,11 +18,11 @@ const Register = () => {
         password,
       })
       .then((response) => {
-        alert("berhasil");
+        alert("success");
         navigate("/");
       })
-      .catch((response) => {
-        alert("gagal");
+      .catch((err) => {
+        alert("failed");
       });
   };
   return (
