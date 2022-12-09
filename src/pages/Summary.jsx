@@ -7,12 +7,14 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Logout from "../components/Logout";
 
 const Summary = () => {
   const [getGPS, setGetGPS] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
+  const navigate = useNavigate();
 
   const handleGetGPS = async () => {
     await axios
@@ -26,6 +28,15 @@ const Summary = () => {
       .catch((err) => {
         alert("error");
       });
+  };
+
+  const handleDetail = (item) => {
+    navigate("/detail", {
+      state: {
+        device_id: item.device_id,
+        device_type: item.device_type,
+      },
+    });
   };
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -103,7 +114,10 @@ const Summary = () => {
                   </td>
                   <td>{item.location}</td>
                   <td>
-                    <DocumentMagnifyingGlassIcon className="w-5 h-5 text-white" />
+                    <DocumentMagnifyingGlassIcon
+                      className="w-5 h-5 text-white"
+                      onClick={() => handleDetail(item)}
+                    />
                   </td>
                 </tr>
               </tbody>
